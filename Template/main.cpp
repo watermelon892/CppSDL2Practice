@@ -1,9 +1,10 @@
-#include <SDL2/SDL.h>
+#include "game.hpp"
 
 int main(void) {
-  SDL_Init(SDL_INIT_EVERYTHING);
-
-  SDL_Quit();
-
+  Game game;
+  if (game.Initialize()) {
+    game.RunLoop();
+  }
+  game.Shutdown();
   return 0;
 }

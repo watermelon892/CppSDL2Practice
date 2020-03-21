@@ -1,6 +1,6 @@
 TARGET = game
 GCC    = g++
-SRC    = main.cpp
+SRC    = main.cpp game.cpp
 LIB    = SDL2
 
 all:
