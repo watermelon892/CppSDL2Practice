@@ -17,18 +17,16 @@ private:
 
   SDL_Window* mWindow;
   SDL_Renderer* mRenderer;
+  Uint32 mTicksCount;
+  bool mIsRunning;
 
-  struct Vector2{
+  struct PosVec{
     float x;
     float y;
   };
 
-  Vector2 mBallPos{
-    WIDTH / 2,
-    HEIGHT / 2
-  };
-
-  bool mIsRunning;
+  PosVec mBallPos;
+  PosVec mPaddlePos;
 
   constexpr const static char* TITLE = "Template";
   const static int X_POS     = 100;
@@ -36,5 +34,7 @@ private:
   const static int WIDTH     = 1024;
   const static int HEIGHT    = 768;
   const static int FLAGS     = 0;
-  const static int thickness = 15;
+
+  const static int THICKNESS  = 15;
+  constexpr const static float PADDLE_H = 100.0f;
 };
