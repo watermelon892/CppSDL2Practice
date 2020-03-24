@@ -59,6 +59,10 @@ void Game::ProcessInput() {
 }
 
 void Game::UpdateGame() {
+  while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16))
+    ;
+
+  float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
 }
 
 void Game::GenerateOutput() {
@@ -76,8 +80,8 @@ void Game::GenerateOutput() {
   SDL_RenderFillRect(mRenderer, &wall);
 
   SDL_Rect paddle{
-    static_cast<int>(mBallPos.x),
-    static_cast<int>(mBallPos.y - THICKNESS / 2),
+    static_cast<int>(mPaddlePos.x),
+    static_cast<int>(mPaddlePos.y - THICKNESS / 2),
     THICKNESS,
     static_cast<int>(PADDLE_H)
   };
