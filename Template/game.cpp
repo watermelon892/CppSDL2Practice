@@ -3,7 +3,8 @@
 Game::Game()
   :mWindow(nullptr)
   ,mRenderer(nullptr)
-  ,mTicksCount(0) {}
+  ,mTicksCount(0)
+  ,mIsRunning(true) {}
 
 Game::~Game() {}
 
@@ -13,7 +14,12 @@ bool Game::Initialize() {
     return false;
   }
 
-  mWindow = SDL_CreateWindow(TITLE, X_POS, Y_POS, WIDTH, HEIGHT, FLAGS);
+  mWindow = SDL_CreateWindow(
+    WINDOW_TITLE,
+    WINDOW_X_POS, WINDOW_Y_POS,
+    WINDOW_WIDTH, WINDOW_HEIGHT,
+    WINDOW_FLAGS
+  );
 
   if (!mWindow) {
     SDL_Log("ERROR : %s", SDL_GetError());
@@ -21,17 +27,13 @@ bool Game::Initialize() {
   }
 
   mRenderer = SDL_CreateRenderer(
-    mWindow,
-    -1,
-    SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+    mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
   );
 
   mPaddlePos.x =   10.0f;
   mPaddlePos.y =  768.0f / 2.0f;
   mBallPos.x   = 1024.0f / 2.0f;
   mBallPos.y   =  768.0f / 2.0f;
-
-  mIsRunning = true;
 
   return true;
 }
@@ -66,27 +68,43 @@ void Game::UpdateGame() {
 }
 
 void Game::GenerateOutput() {
-  SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255); // R G B A
+  SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+
   SDL_RenderClear(mRenderer);
 
   SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
-  SDL_Rect wall{0, 0, 1024, THICKNESS};
+
+  GenerateWall();
+  GeneratePaddle();
+  GenerateBall();
+
+  SDL_RenderPresent(mRenderer);
+}
+
+void Game::GenerateWall() {
+  SDL_Rect wall{0, WINDOW_HEIGHT - THICKNESS, 1024, THICKNESS};
+
   SDL_RenderFillRect(mRenderer, &wall);
 
-  wall.x = 1024 - THICKNESS;
+  wall.x = WINDOW_WIDTH - THICKNESS;
   wall.y = 0;
   wall.w = THICKNESS;
-  wall.h = 1024;
-  SDL_RenderFillRect(mRenderer, &wall);
+  wall.h = WINDOW_WIDTH;
 
+  SDL_RenderFillRect(mRenderer, &wall);
+}
+
+void Game::GeneratePaddle() {
   SDL_Rect paddle{
     static_cast<int>(mPaddlePos.x),
     static_cast<int>(mPaddlePos.y - THICKNESS / 2),
     THICKNESS,
-    static_cast<int>(PADDLE_H)
+    static_cast<int>(PADDLE_HEIGHT)
   };
   SDL_RenderFillRect(mRenderer, &paddle);
+}
 
+void Game::GenerateBall() {
   SDL_Rect ball{
     static_cast<int>(mBallPos.x - THICKNESS / 2),
     static_cast<int>(mBallPos.y - THICKNESS / 2),
@@ -94,8 +112,6 @@ void Game::GenerateOutput() {
     THICKNESS
   };
   SDL_RenderFillRect(mRenderer, &ball);
-
-  SDL_RenderPresent(mRenderer);
 }
 
 void Game::RunLoop() {

@@ -15,6 +15,10 @@ private:
   void UpdateGame();
   void GenerateOutput();
 
+  void GenerateWall();
+  void GeneratePaddle();
+  void GenerateBall();
+
   SDL_Window* mWindow;
   SDL_Renderer* mRenderer;
   Uint32 mTicksCount;
@@ -28,13 +32,13 @@ private:
   PosVec mBallPos;
   PosVec mPaddlePos;
 
-  constexpr const static char* TITLE = "Template";
-  const static int X_POS     = 100;
-  const static int Y_POS     = 100;
-  const static int WIDTH     = 1024;
-  const static int HEIGHT    = 768;
-  const static int FLAGS     = 0;
+  constexpr const static char* WINDOW_TITLE = "Template";
+  const static int WINDOW_X_POS  = 100;
+  const static int WINDOW_Y_POS  = 100;
+  const static int WINDOW_WIDTH  = 1024;
+  const static int WINDOW_HEIGHT = 768;
+  const static int WINDOW_FLAGS  = 0;
 
   const static int THICKNESS  = 15;
-  constexpr const static float PADDLE_H = 100.0f;
+  constexpr const static float PADDLE_HEIGHT = 100.0f;
 };
