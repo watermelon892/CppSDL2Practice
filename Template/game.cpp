@@ -4,6 +4,7 @@ Game::Game()
   :mWindow(nullptr)
   ,mRenderer(nullptr)
   ,mTicksCount(0)
+  ,mPaddleDir(0)
   ,mIsRunning(true) {}
 
 Game::~Game() {}
@@ -34,6 +35,8 @@ bool Game::Initialize() {
   mPaddlePos.y =  768.0f / 2.0f;
   mBallPos.x   = 1024.0f / 2.0f;
   mBallPos.y   =  768.0f / 2.0f;
+  mBallVel.x   = -200.0f;
+  mBallVel.y   =  235.0f;
 
   return true;
 }

@@ -29,8 +29,10 @@ private:
     float y;
   };
 
-  PosVec mBallPos;
+  int mPaddleDir;
   PosVec mPaddlePos;
+  PosVec mBallPos;
+  PosVec mBallVel;
 
   constexpr const static char* WINDOW_TITLE = "Template";
   const static int WINDOW_X_POS  = 100;
