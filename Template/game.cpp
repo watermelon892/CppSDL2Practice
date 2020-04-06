@@ -48,6 +48,11 @@ void Game::Shutdown() {
 }
 
 void Game::ProcessInput() {
+  GetEventState();
+  GetKeyboardState();
+}
+
+void Game::GetEventState() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
@@ -56,11 +61,15 @@ void Game::ProcessInput() {
       break;
     }
   }
+}
 
+void Game::GetKeyboardState() {
+  mPaddleDir = 0;
   const Uint8* state = SDL_GetKeyboardState(NULL);
-  if (state[SDL_SCANCODE_ESCAPE]) {
-    mIsRunning = false;
-  }
+
+  if (state[SDL_SCANCODE_UP])     mPaddleDir -= 1;
+  if (state[SDL_SCANCODE_DOWN])   mPaddleDir += 1;
+  if (state[SDL_SCANCODE_ESCAPE]) mIsRunning = false;
 }
 
 void Game::UpdateGame() {
@@ -68,6 +77,14 @@ void Game::UpdateGame() {
     ;
 
   float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
+
+  if (deltaTime > 0.05f) deltaTime = 0.05f;
+
+  mTicksCount = SDL_GetTicks();
+
+  if (mPaddleDir != 0) {
+    mPaddlePos.y += mPaddleDir * 300.0f * deltaTime;
+  }
 }
 
 void Game::GenerateOutput() {

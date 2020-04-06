@@ -12,9 +12,12 @@ public:
 
 private:
   void ProcessInput();
-  void UpdateGame();
-  void GenerateOutput();
+  void GetEventState();
+  void GetKeyboardState();
 
+  void UpdateGame();
+
+  void GenerateOutput();
   void GenerateWall();
   void GeneratePaddle();
   void GenerateBall();
