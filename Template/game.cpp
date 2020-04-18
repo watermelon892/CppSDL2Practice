@@ -31,10 +31,10 @@ bool Game::Initialize() {
     mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
   );
 
-  mPaddlePos.x =   10.0f;
-  mPaddlePos.y =  768.0f / 2.0f;
-  mBallPos.x   = 1024.0f / 2.0f;
-  mBallPos.y   =  768.0f / 2.0f;
+  mPaddlePos.x = PADDLE_INIT_POS_X;
+  mPaddlePos.y = PADDLE_INIT_POS_Y;
+  mBallPos.x   = BALL_INIT_POS_X;
+  mBallPos.y   = BALL_INIT_POS_Y;
   mBallVel.x   = -200.0f;
   mBallVel.y   =  235.0f;
 
@@ -82,9 +82,25 @@ void Game::UpdateGame() {
 
   mTicksCount = SDL_GetTicks();
 
+  LimitMoveRangeOfPaddle(deltaTime);
+
+  MoveBall(deltaTime);
+}
+
+void Game::LimitMoveRangeOfPaddle(float deltaTime) {
   if (mPaddleDir != 0) {
     mPaddlePos.y += mPaddleDir * 300.0f * deltaTime;
+    if (mPaddlePos.y < 0) {
+      mPaddlePos.y = 0;
+    } else if (mPaddlePos.y > WINDOW_HEIGHT - PADDLE_HEIGHT) {
+      mPaddlePos.y = WINDOW_HEIGHT - PADDLE_HEIGHT;
+    }
   }
+}
+
+void Game::MoveBall(float deltaTime) {
+  mBallPos.x += mBallVel.x * deltaTime;
+  mBallPos.y += mBallVel.y * deltaTime;
 }
 
 void Game::GenerateOutput() {

@@ -16,6 +16,8 @@ private:
   void GetKeyboardState();
 
   void UpdateGame();
+  void LimitMoveRangeOfPaddle(float deltaTime);
+  void MoveBall(float deltaTime);
 
   void GenerateOutput();
   void GenerateWall();
@@ -45,5 +47,9 @@ private:
   const static int WINDOW_FLAGS  = 0;
 
   const static int THICKNESS  = 15;
-  constexpr const static float PADDLE_HEIGHT = 100.0f;
+  constexpr const static float PADDLE_HEIGHT        = 100.0f;
+  constexpr const static float PADDLE_INIT_POS_X = 10.0f;
+  constexpr const static float PADDLE_INIT_POS_Y = (float)WINDOW_HEIGHT / 2.0f;
+  constexpr const static float BALL_INIT_POS_X   = (float)WINDOW_WIDTH  / 2.0f;
+  constexpr const static float BALL_INIT_POS_Y   = (float)WINDOW_HEIGHT / 2.0f;
 };
