@@ -101,6 +101,30 @@ void Game::LimitMoveRangeOfPaddle(float deltaTime) {
 void Game::MoveBall(float deltaTime) {
   mBallPos.x += mBallVel.x * deltaTime;
   mBallPos.y += mBallVel.y * deltaTime;
+
+  float diff = mPaddlePos.y - mBallPos.y;
+  diff = (diff > 0.0f) ? diff : -diff;
+
+  // Bounce
+  if (diff <= PADDLE_HEIGHT / 2.0f &&
+      mBallPos.x <= 25.0f &&
+      mBallPos.x >= 20.0f &&
+      mBallVel.x < 0.0f) {
+    // Paddle
+    mBallVel.x *= -1.0f;
+  } else if (mBallPos.y <= THICKNESS && mBallVel.y < 0.0f) {
+    // Top wall
+    mBallVel.y *= -1;
+  } else if (mBallPos.x >= (1024.0f - THICKNESS) && mBallVel.x > 0.0f) {
+    // Right wall
+    mBallVel.x *= -1.0f;
+  } else if (mBallPos.y >= (768 - THICKNESS) && mBallVel.y > 0.0f) {
+    // Bottom wall
+    mBallVel.y *= -1;
+  } else if (mBallPos.x <= 0.0f) {
+    // Left wall (Game Over)
+    mIsRunning = false;
+  }
 }
 
 void Game::GenerateOutput() {
