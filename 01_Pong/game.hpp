@@ -39,7 +39,7 @@ private:
   PosVec mBallPos;
   PosVec mBallVel;
 
-  constexpr const static char* WINDOW_TITLE = "Template";
+  constexpr const static char* WINDOW_TITLE = "Pong";
   const static int WINDOW_X_POS  = 100;
   const static int WINDOW_Y_POS  = 100;
   const static int WINDOW_WIDTH  = 1024;
