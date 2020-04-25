@@ -4,7 +4,7 @@ Simple game pong
 
 ## Demo
 
-![pong](https://github.com/watermelon892/CppSDL2Practice/01_Pong/pic/blob/master/img/pong.png)
+![pong](https://github.com/watermelon892/CppSDL2Practice/blob/master/01_Pong/pic/pong.png)
 
 ## Usage
 
