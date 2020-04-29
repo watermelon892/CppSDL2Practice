@@ -31,12 +31,12 @@ bool Game::Initialize() {
     mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
   );
 
-  mPaddlePos.x = PADDLE_INIT_POS_X;
-  mPaddlePos.y = PADDLE_INIT_POS_Y;
-  mBallPos.x   = BALL_INIT_POS_X;
-  mBallPos.y   = BALL_INIT_POS_Y;
-  mBallVel.x   = -200.0f;
-  mBallVel.y   =  235.0f;
+  mPaddlePos.x = INIT_PADDLE_POS_X;
+  mPaddlePos.y = INIT_PADDLE_POS_Y;
+  mBallPos.x   = INIT_BALL_POS_X;
+  mBallPos.y   = INIT_BALL_POS_Y;
+  mBallVel.x   = INIT_BALL_VEL_X;
+  mBallVel.y   = INIT_BALL_VEL_Y;
 
   return true;
 }

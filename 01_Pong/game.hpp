@@ -34,7 +34,7 @@ private:
     float y;
   };
 
-  int mPaddleDir;
+  int    mPaddleDir;
   PosVec mPaddlePos;
   PosVec mBallPos;
   PosVec mBallVel;
@@ -46,10 +46,12 @@ private:
   const static int WINDOW_HEIGHT = 768;
   const static int WINDOW_FLAGS  = 0;
 
-  const static int THICKNESS  = 15;
-  constexpr const static float PADDLE_HEIGHT        = 100.0f;
-  constexpr const static float PADDLE_INIT_POS_X = 10.0f;
-  constexpr const static float PADDLE_INIT_POS_Y = (float)WINDOW_HEIGHT / 2.0f;
-  constexpr const static float BALL_INIT_POS_X   = (float)WINDOW_WIDTH  / 2.0f;
-  constexpr const static float BALL_INIT_POS_Y   = (float)WINDOW_HEIGHT / 2.0f;
+  const static int THICKNESS = 15;
+  constexpr const static float PADDLE_HEIGHT     =  100.0f;
+  constexpr const static float INIT_PADDLE_POS_X =   10.0f;
+  constexpr const static float INIT_PADDLE_POS_Y =  384.0f;
+  constexpr const static float INIT_BALL_POS_X   =  512.0f;
+  constexpr const static float INIT_BALL_POS_Y   =  384.0f;
+  constexpr const static float INIT_BALL_VEL_X   = -200.0f;
+  constexpr const static float INIT_BALL_VEL_Y   =  235.0f;
 };
