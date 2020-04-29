@@ -102,29 +102,38 @@ void Game::MoveBall(float deltaTime) {
   mBallPos.x += mBallVel.x * deltaTime;
   mBallPos.y += mBallVel.y * deltaTime;
 
+  if (IsHitPaddle())          mBallVel.x *= -1.0f;
+  else if (IsHitTopWall())    mBallVel.y *= -1.0f;
+  else if (IsHitRightWall())  mBallVel.x *= -1.0f;
+  else if (IsHitBottomWall()) mBallVel.y *= -1.0f;
+  else if (IsHitLeftWall())   mIsRunning = false; // Game Over
+}
+
+bool Game::IsHitPaddle() {
   float diff = mPaddlePos.y - mBallPos.y;
   diff = (diff > 0.0f) ? diff : -diff;
+  return (diff <= PADDLE_HEIGHT / 2.0f &&
+          mBallPos.x <= 25.0f &&
+          mBallPos.x >= 20.0f &&
+          mBallVel.x < 0.0f);
+}
 
-  // Bounce
-  if (diff <= PADDLE_HEIGHT / 2.0f &&
-      mBallPos.x <= 25.0f &&
-      mBallPos.x >= 20.0f &&
-      mBallVel.x < 0.0f) {
-    // Paddle
-    mBallVel.x *= -1.0f;
-  } else if (mBallPos.y <= THICKNESS && mBallVel.y < 0.0f) {
-    // Top wall
-    mBallVel.y *= -1;
-  } else if (mBallPos.x >= (1024.0f - THICKNESS) && mBallVel.x > 0.0f) {
-    // Right wall
-    mBallVel.x *= -1.0f;
-  } else if (mBallPos.y >= (768 - THICKNESS) && mBallVel.y > 0.0f) {
-    // Bottom wall
-    mBallVel.y *= -1;
-  } else if (mBallPos.x <= 0.0f) {
-    // Left wall (Game Over)
-    mIsRunning = false;
-  }
+bool Game::IsHitTopWall() {
+  return mBallPos.y <= THICKNESS && mBallVel.y < 0.0f;
+}
+
+bool Game::IsHitRightWall() {
+  return (mBallPos.x >= (float)(WINDOW_WIDTH - THICKNESS) &&
+          mBallVel.x > 0.0f);
+}
+
+bool Game::IsHitBottomWall() {
+  return (mBallPos.y >= (float)(WINDOW_HEIGHT - THICKNESS)  &&
+          mBallVel.y > 0.0f);
+}
+
+bool Game::IsHitLeftWall() {
+  return mBallPos.x <= 0.0f;
 }
 
 void Game::GenerateOutput() {
@@ -142,7 +151,7 @@ void Game::GenerateOutput() {
 }
 
 void Game::GenerateWall() {
-  SDL_Rect wall{0, WINDOW_HEIGHT - THICKNESS, 1024, THICKNESS};
+  SDL_Rect wall{0, WINDOW_HEIGHT - THICKNESS, WINDOW_WIDTH, THICKNESS};
 
   SDL_RenderFillRect(mRenderer, &wall);
 

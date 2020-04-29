@@ -18,6 +18,11 @@ private:
   void UpdateGame();
   void LimitMoveRangeOfPaddle(float deltaTime);
   void MoveBall(float deltaTime);
+  bool IsHitPaddle();
+  bool IsHitTopWall();
+  bool IsHitRightWall();
+  bool IsHitBottomWall();
+  bool IsHitLeftWall();
 
   void GenerateOutput();
   void GenerateWall();
